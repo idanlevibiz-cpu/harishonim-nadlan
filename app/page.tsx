@@ -25,11 +25,11 @@ const features = [
 ];
 
 const links = [
-  { label: "הנכסים שלנו במדלן", href: "https://did.li/iEbUY", mark: "M" },
-  { label: "העמוד העסקי בפייסבוק", href: "https://did.li/KhhDN", mark: "f" },
-  { label: "הכתבה שלנו ב־TheMarker", href: "https://did.li/R16aa", mark: "T" },
-  { label: "הנכסים שלנו ביד2", href: "https://did.li/3sJgT", mark: "Y" },
-  { label: "המלצות עלינו ב־Google", href: "https://g.co/kgs/UwTFFo", mark: "G" },
+  { label: "הנכסים שלנו במדלן", note: "כל הנכסים במקום אחד", href: "https://did.li/iEbUY", mark: "M", image: "/images/penthouse-08.png" },
+  { label: "העמוד העסקי בפייסבוק", note: "עדכונים, נכסים וסיפורי הצלחה", href: "https://did.li/KhhDN", mark: "f", image: "/images/elad-miri.png" },
+  { label: "הכתבה שלנו ב־TheMarker", note: "להכיר את הדרך והחזון שלנו", href: "https://did.li/R16aa", mark: "T", image: "/images/elad-miri.png" },
+  { label: "הנכסים שלנו ביד2", note: "היצע הנכסים העדכני", href: "https://did.li/3sJgT", mark: "Y", image: "/images/penthouse-01.png" },
+  { label: "המלצות עלינו ב־Google", note: "מה הלקוחות שלנו מספרים", href: "https://g.co/kgs/UwTFFo", mark: "G", image: "/images/logo.jpg" },
 ];
 
 const whatsapp =
@@ -190,9 +190,15 @@ export default function Home() {
         <div className="link-grid">
           {links.map((link) => (
             <a key={link.label} href={link.href} target="_blank" rel="noreferrer">
-              <span className="link-mark">{link.mark}</span>
-              <strong>{link.label}</strong>
-              <span className="arrow">↗</span>
+              <div className="link-image">
+                <img src={link.image} alt="" />
+                <span className="link-mark">{link.mark}</span>
+              </div>
+              <div className="link-content">
+                <strong>{link.label}</strong>
+                <small>{link.note}</small>
+                <span className="arrow">↗</span>
+              </div>
             </a>
           ))}
         </div>
