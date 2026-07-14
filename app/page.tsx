@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const gallery = Array.from({ length: 9 }, (_, i) =>
   `/images/penthouse-${String(i + 1).padStart(2, "0")}.png`,
@@ -38,6 +38,24 @@ const whatsapp =
 
 export default function Home() {
   const [current, setCurrent] = useState(0);
+
+  useEffect(() => {
+    const elements = document.querySelectorAll<HTMLElement>("[data-reveal]");
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.12, rootMargin: "0px 0px -45px" },
+    );
+
+    elements.forEach((element) => observer.observe(element));
+    return () => observer.disconnect();
+  }, []);
 
   const move = (step: number) => {
     setCurrent((value) => (value + step + gallery.length) % gallery.length);
@@ -95,7 +113,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="about section" id="about">
+      <section className="about section" id="about" data-reveal>
         <div>
           <p className="eyebrow">הסיפור שלנו</p>
           <h2>מקצועיות של משרד גדול.<br />ליווי שמרגיש אישי.</h2>
@@ -115,7 +133,7 @@ export default function Home() {
       </section>
 
       <section className="property section" id="property">
-        <div className="section-heading">
+        <div className="section-heading" data-reveal>
           <div>
             <p className="eyebrow">נכס נבחר</p>
             <h2>פנטהאוז ענק ומושקע<br />עם נוף פתוח מהקומה ה־18</h2>
@@ -126,9 +144,9 @@ export default function Home() {
           </p>
         </div>
 
-        <div className="gallery-shell">
+        <div className="gallery-shell" data-reveal>
           <div className="gallery-main">
-            <img src={gallery[current]} alt={`הפנטהאוז, תמונה ${current + 1} מתוך ${gallery.length}`} />
+            <img key={gallery[current]} className="gallery-photo" src={gallery[current]} alt={`הפנטהאוז, תמונה ${current + 1} מתוך ${gallery.length}`} />
             <button className="gallery-arrow gallery-next" onClick={() => move(1)} aria-label="לתמונה הבאה">‹</button>
             <button className="gallery-arrow gallery-prev" onClick={() => move(-1)} aria-label="לתמונה הקודמת">›</button>
             <span className="counter">{current + 1} / {gallery.length}</span>
@@ -158,7 +176,7 @@ export default function Home() {
           </a>
         </div>
 
-        <div className="property-details">
+        <div className="property-details" data-reveal>
           <div className="feature-grid">
             {features.map((feature) => <span key={feature}>{feature}</span>)}
           </div>
@@ -172,7 +190,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="press section">
+      <section className="press section" data-reveal>
         <blockquote>
           “המטרה שלנו היא להעניק לרוכש ולמוכר ביטחון, בהירות ושקט לאורך כל הדרך.”
         </blockquote>
@@ -180,14 +198,14 @@ export default function Home() {
       </section>
 
       <section className="links-section section" id="links">
-        <div className="section-heading compact">
+        <div className="section-heading compact" data-reveal>
           <div>
             <p className="eyebrow">מכירים אותנו יותר</p>
             <h2>הנכסים, ההמלצות והעשייה שלנו</h2>
           </div>
           <p>כל המקומות שבהם אפשר להתרשם, לקרוא ולראות מה אנחנו עושים.</p>
         </div>
-        <div className="link-grid">
+        <div className="link-grid" data-reveal>
           {links.map((link) => (
             <a key={link.label} href={link.href} target="_blank" rel="noreferrer">
               <div className="link-image">
