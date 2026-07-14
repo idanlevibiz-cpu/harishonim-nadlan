@@ -148,6 +148,16 @@ export default function Home() {
           </div>
         </div>
 
+        <div className="more-properties" aria-label="קישורים לנכסים נוספים">
+          <span>רוצים לראות נכסים נוספים?</span>
+          <a href="https://did.li/3sJgT" target="_blank" rel="noreferrer">
+            עוד נכסים ביד2 <b>↗</b>
+          </a>
+          <a href="https://did.li/iEbUY" target="_blank" rel="noreferrer">
+            עוד נכסים במדלן <b>↗</b>
+          </a>
+        </div>
+
         <div className="property-details">
           <div className="feature-grid">
             {features.map((feature) => <span key={feature}>{feature}</span>)}
